@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import './index.css';
 
 const App = () => {
     const [data, setData] = useState<string | null>(null);
@@ -20,8 +21,10 @@ const App = () => {
     }, []);
 
     return (
-        <div>
-            <h1>{data ? data : 'Loading data from backend...'}</h1>
+        <div className="bg-amber-300">
+            {/*<h1 className="text-4xl font-bold text-black">{data ? data : 'Loading data from backend...'}</h1>*/}
+            <h1 className="text-blue-500">{data}</h1>
+            <h1 className="text-red-800">Static Text</h1>
         </div>
     );
 };

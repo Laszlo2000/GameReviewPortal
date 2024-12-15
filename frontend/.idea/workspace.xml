@@ -5,26 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f058ed6e-91ee-4b53-b883-8d48e39b034e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/laszlo/gamereviewportal/config/WebConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/laszlo/gamereviewportal/controller/DataController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/laszlo/gamereviewportal/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/laszlo/gamereviewportal/config/WebConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/eslint.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/public/vite.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/src/App.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/src/assets/react.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/src/main.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/src/vite-env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/tsconfig.app.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/tsconfig.node.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite-project/vite.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,21 +20,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Laszlo2000"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Laszlo2000&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Laszlo2000/GameReviewPortal.git",
-    "accountId": "5ad36dc5-334a-4492-a0ae-4ca207620fdc"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Laszlo2000/GameReviewPortal.git&quot;,
+    &quot;accountId&quot;: &quot;5ad36dc5-334a-4492-a0ae-4ca207620fdc&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2qGEF99e5OHkNRDd0WlNOT6WhyA" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -57,6 +43,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -78,7 +65,7 @@
       <node-interpreter value="project" />
       <envs />
       <EXTENSION ID="com.intellij.lang.javascript.buildTools.npm.rc.StartBrowserRunConfigurationExtension">
-        <browser name="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" start="true" url="http://localhost:5175/" />
+        <browser name="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" start="true" url="http://localhost:5173/apid/data" />
       </EXTENSION>
       <method v="2" />
     </configuration>
@@ -98,7 +85,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734280406356</updated>
-      <workItem from="1734280408103" duration="323000" />
+      <workItem from="1734280408103" duration="2581000" />
+      <workItem from="1734283044446" duration="367000" />
     </task>
     <servers />
   </component>
