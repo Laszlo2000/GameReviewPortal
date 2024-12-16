@@ -2,6 +2,7 @@ package com.laszlo.gamereviewportal.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -22,12 +23,15 @@ public class UserEntity implements UserDetails {
     private long id;
 
     @Column(name = "username", nullable = false, unique = true)
+    @NotBlank(message = "Email cannot be empty")
     private String username;
 
     @Column(name = "password", nullable = false)
+    @NotBlank(message = "Email cannot be empty")
     private String password;
 
     @Column(name = "email", nullable = false, unique = true)
+    @NotBlank(message = "Email cannot be empty")
     private String email;
 
     private String firstName;
@@ -35,13 +39,13 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "date_of_birth")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateOfBirth;
 
     private String country;
 
     @Column(name = "registration_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime registrationDate;
+    private LocalDateTime registrationDate = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
@@ -117,11 +121,11 @@ public class UserEntity implements UserDetails {
         this.lastName = lastName;
     }
 
-    public LocalDateTime getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
