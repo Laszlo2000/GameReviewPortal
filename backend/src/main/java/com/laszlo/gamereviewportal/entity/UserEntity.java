@@ -1,9 +1,12 @@
 package com.laszlo.gamereviewportal.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-public class UsersEntity implements UserDetails {
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,20 +32,25 @@ public class UsersEntity implements UserDetails {
 
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
+
+    @Column(name = "date_of_birth")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDateTime dateOfBirth;
+
     private String country;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date registrationDate = new Date();
+    @Column(name = "registration_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime registrationDate;
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     private RoleEntity role;
 
-    public UsersEntity() {
+    public UserEntity() {
     }
 
-    public UsersEntity(String username, String password, String email, RoleEntity role, Date registrationDate) {
+    public UserEntity(String username, String password, String email, RoleEntity role, LocalDateTime registrationDate) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -109,11 +117,11 @@ public class UsersEntity implements UserDetails {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDateTime getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDateTime dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -125,11 +133,11 @@ public class UsersEntity implements UserDetails {
         this.country = country;
     }
 
-    public Date getRegistrationDate() {
+    public LocalDateTime getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
+    public void setRegistrationDate(LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
     }
 
@@ -140,7 +148,7 @@ public class UsersEntity implements UserDetails {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        UsersEntity that = (UsersEntity) o;
+        UserEntity that = (UserEntity) o;
         return id == that.id && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(email, that.email) && Objects.equals(role, that.role);
     }
 
@@ -151,7 +159,7 @@ public class UsersEntity implements UserDetails {
 
     @Override
     public String toString() {
-        return "UsersEntity{" +
+        return "UserEntity{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
