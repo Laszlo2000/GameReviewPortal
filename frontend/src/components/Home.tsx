@@ -19,7 +19,7 @@ const Home: React.FC = () => {
         // Token kiolvasása localStorage-ből
         const token = localStorage.getItem("token");
         if (token) {
-            const decoded = decodeToken(token.split(" ")[1]); // "Bearer " eltávolítása
+            const decoded = decodeToken(token); // "Bearer" előtag eltávolítása nem szükséges
             if (decoded) {
                 setUsername(decoded.sub); // A "sub" mező tartalmazza a felhasználónevet
             }
@@ -29,7 +29,7 @@ const Home: React.FC = () => {
     return (
         <div className="flex justify-center items-center h-screen bg-gray-700">
             <h1 className="text-4xl font-bold text-black">
-                Welcome {username}! ❤️
+                Welcome {username || "Guest"}! ❤️
             </h1>
         </div>
     );

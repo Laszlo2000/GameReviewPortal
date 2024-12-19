@@ -26,7 +26,7 @@ const Login: React.FC = () => {
                 console.log("Received token:", token);
 
                 if (token) {
-                    localStorage.setItem("token", `Bearer ${token}`);
+                    localStorage.setItem("token", token);
                     navigate("/home"); // Átirányítás a Home oldalra
                 } else {
                     setError("No token received from the server.");
