@@ -30,6 +30,16 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
+        UserEntity user = userService.getUserById(id);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PutMapping("/{id}/role")
     public ResponseEntity<String> updateUserRole(@PathVariable Long id, @RequestBody Map<String, Long> request) {
         Long newRoleId = request.get("roleId");

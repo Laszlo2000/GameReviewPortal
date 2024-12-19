@@ -32,6 +32,10 @@ public class UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    public UserEntity getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
     public UserEntity register(UserEntity user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         RoleEntity role = roleRepository.findById(2L)
