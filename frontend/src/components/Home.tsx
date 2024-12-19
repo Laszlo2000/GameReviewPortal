@@ -27,9 +27,9 @@ const Home: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex justify-center items-center h-screen bg-green-100">
-            <h1 className="text-4xl font-bold text-gray-700">
-                {username ? `Welcome ${username}!` : "Welcome to Game Review Portal!"}
+        <div className="flex justify-center items-center h-screen bg-gray-700">
+            <h1 className="text-4xl font-bold text-black">
+                Welcome {username}! ❤️
             </h1>
         </div>
     );

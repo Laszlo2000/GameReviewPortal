@@ -42,17 +42,17 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-100">
+        <div className="flex justify-center items-center h-screen bg-gray-700">
             <form
                 onSubmit={handleLogin}
-                className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm"
+                className="bg-gray-500 p-6 rounded-lg shadow-md w-full max-w-sm"
             >
                 <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
                 {error && (
                     <div className="mb-4 text-red-500 text-sm text-center">{error}</div>
                 )}
                 <div className="mb-4">
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="username" className="block text-sm font-medium text-black">
                         Username:
                     </label>
                     <input
@@ -61,11 +61,11 @@ const Login: React.FC = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="password" className="block text-sm font-medium text-black">
                         Password:
                     </label>
                     <input
@@ -74,7 +74,7 @@ const Login: React.FC = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     />
                 </div>
                 <button
@@ -84,9 +84,10 @@ const Login: React.FC = () => {
                     Login
                 </button>
                 <div className="mt-4 text-center">
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-black">
                         Don't have an account?{" "}
-                        <Link to="/register" className="text-blue-500 hover:underline">
+                        <Link to="/register" className="text-blue-600 hover:underline">
+                            <br />
                             Register here
                         </Link>
                     </span>

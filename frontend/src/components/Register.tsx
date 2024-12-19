@@ -41,17 +41,17 @@ const Register: React.FC = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-100">
+        <div className="flex justify-center items-center h-screen bg-gray-700">
             <form
                 onSubmit={handleRegister}
-                className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm"
+                className="bg-gray-500 0 p-6 rounded-lg shadow-md w-full max-w-sm"
             >
                 <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
                 {message && (
                     <div className="mb-4 text-red-500 text-sm text-center">{message}</div>
                 )}
                 <div className="mb-4">
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="username" className="block text-sm font-medium text-black">
                         Username:
                     </label>
                     <input
@@ -60,11 +60,11 @@ const Register: React.FC = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="email" className="block text-sm font-medium text-black">
                         Email:
                     </label>
                     <input
@@ -73,11 +73,11 @@ const Register: React.FC = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="password" className="block text-sm font-medium text-black">
                         Password:
                     </label>
                     <input
@@ -86,11 +86,11 @@ const Register: React.FC = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-black">
                         Confirm Password:
                     </label>
                     <input
@@ -99,7 +99,7 @@ const Register: React.FC = () => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     />
                 </div>
                 <button
@@ -109,9 +109,10 @@ const Register: React.FC = () => {
                     Register
                 </button>
                 <div className="mt-4 text-center">
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-black">
                         Do you have an account?{" "}
-                        <Link to="/login" className="text-blue-500 hover:underline">
+                        <Link to="/login" className="text-blue-600 hover:underline">
+                            <br/>
                             Login here
                         </Link>
                     </span>
