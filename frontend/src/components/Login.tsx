@@ -49,7 +49,7 @@ const Login: React.FC = () => {
             >
                 <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
                 {error && (
-                    <div className="mb-4 text-red-500 text-sm text-center">{error}</div>
+                    <div className="mb-4 text-[#EDD609] 0 font-bold text-sm text-center">{error}</div>
                 )}
                 <div className="mb-4">
                     <label htmlFor="username" className="block text-sm font-medium text-black">
@@ -89,6 +89,10 @@ const Login: React.FC = () => {
                         <Link to="/register" className="text-blue-600 hover:underline">
                             <br />
                             Register here
+                        </Link>
+                        <Link to="/" className="text-blue-600 hover:underline">
+                            <br />
+                            Home
                         </Link>
                     </span>
                 </div>

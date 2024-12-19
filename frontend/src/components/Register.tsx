@@ -48,7 +48,7 @@ const Register: React.FC = () => {
             >
                 <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
                 {message && (
-                    <div className="mb-4 text-red-500 text-sm text-center">{message}</div>
+                    <div className="mb-4 font-bold text-[#EDD609] text-sm text-center">{message}</div>
                 )}
                 <div className="mb-4">
                     <label htmlFor="username" className="block text-sm font-medium text-black">
@@ -114,6 +114,10 @@ const Register: React.FC = () => {
                         <Link to="/login" className="text-blue-600 hover:underline">
                             <br/>
                             Login here
+                        </Link>
+                        <Link to="/" className="text-blue-600 hover:underline">
+                            <br />
+                            Home
                         </Link>
                     </span>
                 </div>
