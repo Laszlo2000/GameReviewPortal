@@ -31,10 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### IntelliJ IDEA ###
-# Ignore the workspace.xml file in the frontend/.idea folder
-frontend/.idea/workspace.xml
-
-# Optionally ignore the entire .idea folder
-frontend/.idea/
