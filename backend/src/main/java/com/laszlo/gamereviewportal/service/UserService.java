@@ -36,6 +36,14 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    public boolean existsById(Long id) {
+        return userRepository.existsById(id);
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
+
     public UserEntity register(UserEntity user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         RoleEntity role = roleRepository.findById(2L)

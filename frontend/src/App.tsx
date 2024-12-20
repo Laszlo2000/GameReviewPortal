@@ -6,30 +6,39 @@ import Register from './components/Register.tsx';
 import Navbar from "./components/Navbar.tsx";
 import PrivateRoute from "./components/PrivateRoute";
 import Admin from "./components/Admin.tsx";
+import Users from "./components/Users.tsx";
 
 const App: React.FC = () => {
     return (
         <Router>
-            <NavBarWithConditionalRender />
+            <NavBarWithConditionalRender/>
             <Routes>
                 {/* Gyökérútvonal */}
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home/>}/>
 
                 {/* Bejelentkezési/Regisztrációs oldal */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/register" element={<Register/>}/>
 
                 {/* Védett útvonalak */}
                 <Route path="/home" element={
                     <PrivateRoute>
-                        <Home />
+                        <Home/>
                     </PrivateRoute>
-                } />
+                }/>
                 <Route
                     path="/admin"
                     element={
                         <PrivateRoute>
-                            <Admin />
+                            <Admin/>
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/admin/users"
+                    element={
+                        <PrivateRoute>
+                            <Users/>
                         </PrivateRoute>
                     }
                 />
@@ -46,7 +55,7 @@ const NavBarWithConditionalRender: React.FC = () => {
     }
     return (
         <div className="p-10">
-            <Navbar />
+            <Navbar/>
         </div>
     );
 };

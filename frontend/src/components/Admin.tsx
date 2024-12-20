@@ -26,7 +26,7 @@ const Admin: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-700">
+        <div className="flex justify-center items-center h-screen bg-[#F6EEC9]">
             <h1 className="text-4xl font-bold text-black">
                 🎉 Congratulations {username || "Admin"} you are an Admin! 🎉
             </h1>

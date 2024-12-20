@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import com.laszlo.gamereviewportal.entity.UserEntity;
 import com.laszlo.gamereviewportal.service.UserService;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -41,10 +40,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Role not found");
     }
 
-    @GetMapping("/users")
-    public List<UserEntity> getAllUsers() {
-        return userService.getAllUsers();
-    }
+//    @GetMapping("/users")
+//    public List<UserEntity> getAllUsers() {
+//        return userService.getAllUsers();
+//    }
 
     @GetMapping("/user/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {

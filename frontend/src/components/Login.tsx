@@ -42,10 +42,10 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-700">
+        <div className="flex justify-center items-center h-screen bg-[#f7EEC9]">
             <form
                 onSubmit={handleLogin}
-                className="bg-gray-500 p-6 rounded-lg shadow-md w-full max-w-sm"
+                className="bg-[#EE4E4E] p-6 rounded-lg shadow-md w-full max-w-sm"
             >
                 <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
                 {error && (
@@ -61,7 +61,7 @@ const Login: React.FC = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                        className="mt-1 block w-full px-3 py-2 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 bg-[#f7EEC9] border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     />
                 </div>
                 <div className="mb-4">
@@ -74,7 +74,7 @@ const Login: React.FC = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        className="mt-1 block w-full px-3 py-2 bg-gray-300 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 bg-[#f7EEC9] border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     />
                 </div>
                 <button
