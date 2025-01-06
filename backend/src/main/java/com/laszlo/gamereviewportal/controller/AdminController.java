@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
@@ -95,5 +96,12 @@ public class AdminController {
             userRepository.save(user);
             return ResponseEntity.ok("User updated successfully!");
         }).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found."));
+    }
+
+    @PutMapping("/{id}/role")
+    public ResponseEntity<String> updateUserRole(@PathVariable Long id, @RequestBody Map<String, Long> request) {
+        Long newRoleId = request.get("roleId");
+        userService.updateUserRole(id, newRoleId);
+        return ResponseEntity.ok("Role updated successfully");
     }
 }

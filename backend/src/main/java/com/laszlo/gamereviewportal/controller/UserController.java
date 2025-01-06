@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import com.laszlo.gamereviewportal.entity.UserEntity;
 import com.laszlo.gamereviewportal.service.UserService;
 
-import java.util.Map;
-
 @RestController
 public class UserController {
 
@@ -53,12 +51,5 @@ public class UserController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @PutMapping("/{id}/role")
-    public ResponseEntity<String> updateUserRole(@PathVariable Long id, @RequestBody Map<String, Long> request) {
-        Long newRoleId = request.get("roleId");
-        userService.updateUserRole(id, newRoleId);
-        return ResponseEntity.ok("Role updated successfully");
     }
 }
