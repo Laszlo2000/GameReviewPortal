@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+interface Role {
+    id: number;
+    role: string;
+    authority: string;
+}
+
 interface User {
     id: number;
     username: string;
@@ -10,6 +16,7 @@ interface User {
     dateOfBirth: string | null;
     country: string | null;
     registrationDate: string;
+    role: Role;
 }
 
 const Users: React.FC = () => {
@@ -80,7 +87,8 @@ const Users: React.FC = () => {
             firstName: user.firstName || "",
             lastName: user.lastName || "",
             dateOfBirth: user.dateOfBirth || "",
-            country: user.country || ""
+            country: user.country || "",
+            role: user.role
         });
     };
 
@@ -103,7 +111,10 @@ const Users: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(editUserData),
+                body: JSON.stringify({
+                    ...editUserData,
+                    role: editUserData.role || users.find(user => user.id === editUserId)?.role,
+                }),
             });
 
             if (response.ok) {
@@ -159,6 +170,39 @@ const Users: React.FC = () => {
         }
     };
 
+    const handleRoleChange = async (userId: number, newRoleId: number) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("Unauthorized: Please log in.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/admin/${userId}/role`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ roleId: newRoleId }),
+            });
+
+            if (response.ok) {
+                alert("Role updated successfully!");
+                setUsers((prevUsers) =>
+                    prevUsers.map((user) =>
+                        user.id === userId ? { ...user, role: { ...user.role, id: newRoleId } } : user
+                    )
+                );
+            } else {
+                alert("Failed to update role. Please try again.");
+            }
+        } catch (err) {
+            console.error("Error updating role:", err);
+            alert("An unexpected error occurred.");
+        }
+    };
+
     return (
         <div className="bg-[#F6EEC9] min-h-screen flex flex-col items-center p-6 text-white">
             <h1 className="text-2xl font-bold text-black mb-4">User List</h1>
@@ -176,6 +220,7 @@ const Users: React.FC = () => {
                         <th className="border border-[#F6EEC9] px-4 py-2 text-black w-32">Country</th>
                         <th className="border border-[#F6EEC9] px-4 py-2 text-black w-48">Registration Date</th>
                         <th className="border border-[#F6EEC9] px-4 py-2 text-black w-48">Edit User</th>
+                        <th className="border border-[#F6EEC9] px-4 py-2 text-black w-32">Role</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -257,6 +302,18 @@ const Users: React.FC = () => {
                                             </button>
                                         </div>
                                     </td>
+                                    <td className="border border-[#F6EEC9] px-4 py-2 text-center">
+                                        {editUserId === user.id ? null : (
+                                            <select
+                                                className="bg-[#3388ff] text-black w-full h-full px-2 py-1 rounded"
+                                                value={user.role.id}
+                                                onChange={(e) => handleRoleChange(user.id, Number(e.target.value))}
+                                            >
+                                                <option className="font-bold" value={1}>Admin</option>
+                                                <option className="font-bold" value={2}>User</option>
+                                            </select>
+                                        )}
+                                    </td>
                                 </>
                             ) : (
                                 <>
@@ -296,6 +353,18 @@ const Users: React.FC = () => {
                                                 Delete
                                             </button>
                                         </div>
+                                    </td>
+                                    <td className="border border-[#F6EEC9] px-4 py-2 text-center">
+                                        {editUserId === user.id ? null : ( // Ha szerkesztési módban vagyunk, ne jelenjen meg az oszlop
+                                            <select
+                                                className="bg-[#3388ff] text-black w-full h-full px-2 py-1 rounded"
+                                                value={user.role.id}
+                                                onChange={(e) => handleRoleChange(user.id, Number(e.target.value))}
+                                            >
+                                                <option className="font-bold" value={1}>Admin</option>
+                                                <option className="font-bold" value={2}>User</option>
+                                            </select>
+                                        )}
                                     </td>
                                 </>
                             )}
