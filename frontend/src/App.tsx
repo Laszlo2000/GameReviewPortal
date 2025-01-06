@@ -38,7 +38,23 @@ const App: React.FC = () => {
                     path="/admin/users"
                     element={
                         <PrivateRoute>
-                            <Users/>
+                            <Users />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/admin/current-user"
+                    element={
+                        <PrivateRoute>
+                            <Admin />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/admin/protected"
+                    element={
+                        <PrivateRoute>
+                            <Admin />
                         </PrivateRoute>
                     }
                 />

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +34,32 @@ public class AdminController {
         return ResponseEntity.ok("This is an admin-only endpoint.");
     }
 
+    @GetMapping("/current-user")
+    @PreAuthorize("hasAuthority('admin')")
+    public ResponseEntity<Map<String, Object>> getCurrentUser(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Unauthorized"));
+        }
+
+        String username = authentication.getName();
+        UserEntity currentUser = userService.getByUsername(username);
+
+        if (currentUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found"));
+        }
+
+        // Return the userId and roleId
+        Map<String, Object> response = Map.of(
+                "userId", currentUser.getId(),
+                "username", currentUser.getUsername(),
+                "roleId", currentUser.getRole().getId()
+        );
+
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/check-role")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<String> checkRole(Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized"); // Token nélkül
@@ -71,7 +97,7 @@ public class AdminController {
     }
 
     @PutMapping("/users/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('admin')")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserEntity updatedUser) {
         return userRepository.findById(id).map(user -> {
             // Csak a nem null értékeket frissítjük
@@ -99,9 +125,33 @@ public class AdminController {
     }
 
     @PutMapping("/{id}/role")
-    public ResponseEntity<String> updateUserRole(@PathVariable Long id, @RequestBody Map<String, Long> request) {
+    public ResponseEntity<String> updateUserRole(
+            @PathVariable Long id,
+            @RequestBody Map<String, Long> request,
+            @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal
+    ) {
         Long newRoleId = request.get("roleId");
+
+        // Az aktuális felhasználó lekérése
+        UserEntity currentUser = userService.getByUsername(principal.getUsername());
+        if (currentUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Current user not found");
+        }
+
+        // Csak SuperAdmin módosíthat szerepköröket
+        if (currentUser.getRole().getId() != 3) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Only SuperAdmins can modify roles!");
+        }
+
+        // Célzott felhasználó lekérése
+        UserEntity targetUser = userService.getUserById(id);
+        if (targetUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Target user not found");
+        }
+
+        // A szerepkör frissítése
         userService.updateUserRole(id, newRoleId);
         return ResponseEntity.ok("Role updated successfully");
     }
+
 }

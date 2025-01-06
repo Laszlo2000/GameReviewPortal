@@ -69,6 +69,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public UserEntity getByUsername(String username) {
+        return userRepository.findOptionalByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+    }
+
     @Transactional
     public void updateUserRole(Long userId, Long newRoleId) {
         UserEntity user = userRepository.findById(userId)
