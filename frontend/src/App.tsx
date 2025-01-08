@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar.tsx";
 import PrivateRoute from "./components/PrivateRoute";
 import Admin from "./components/Admin.tsx";
 import Users from "./components/Users.tsx";
+import GameAdmin from "./components/GameAdmin";
 
 const App: React.FC = () => {
     return (
@@ -55,6 +56,14 @@ const App: React.FC = () => {
                     element={
                         <PrivateRoute>
                             <Admin />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/games"
+                    element={
+                        <PrivateRoute>
+                            <GameAdmin />
                         </PrivateRoute>
                     }
                 />

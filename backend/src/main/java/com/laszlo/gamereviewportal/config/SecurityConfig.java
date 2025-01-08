@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/check-role").authenticated()
                         .requestMatchers("/admin", "/admin/**").hasAuthority("admin")
                         .requestMatchers(HttpMethod.PUT, "/admin/users/**").hasAuthority("admin")
+                        .requestMatchers("/developers/**").hasAuthority("admin")
                         .anyRequest().authenticated())
                 .httpBasic(withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

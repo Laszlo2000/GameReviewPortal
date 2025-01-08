@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,11 +22,11 @@ public class UserEntity implements UserDetails {
     private long id;
 
     @Column(name = "username", nullable = false, unique = true)
-    @NotBlank(message = "Email cannot be empty")
+    @NotBlank(message = "Username cannot be empty")
     private String username;
 
     @Column(name = "password", nullable = false)
-    @NotBlank(message = "Email cannot be empty")
+    @NotBlank(message = "Password cannot be empty")
     private String password;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -41,6 +40,7 @@ public class UserEntity implements UserDetails {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
+    @Column(name = "country")
     private String country;
 
     @Column(name = "registration_date")

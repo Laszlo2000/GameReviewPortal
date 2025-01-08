@@ -63,7 +63,7 @@ const Navbar: React.FC = () => {
                     to="/guest"
                     className="hover:bg-[#F6EEC9] hover:text-black px-4 py-2 rounded transition duration-300"
                 >
-                    Guest
+                    Games
                 </Link>
                 <Link
                     to={isLoggedIn ? "/home" : "/"}

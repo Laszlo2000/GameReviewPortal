@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,10 +18,10 @@ import java.util.Map;
 @PreAuthorize("hasAuthority('admin')")
 public class AdminController {
 
-    private final UserService userService;
-
     @Autowired
     private UserRepository userRepository;
+
+    private final UserService userService;
 
     public AdminController(UserService userService) {
         this.userService = userService;
@@ -125,33 +124,10 @@ public class AdminController {
     }
 
     @PutMapping("/{id}/role")
-    public ResponseEntity<String> updateUserRole(
-            @PathVariable Long id,
-            @RequestBody Map<String, Long> request,
-            @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal
-    ) {
+    @PreAuthorize("hasAnyAuthority('admin')")
+    public ResponseEntity<String> updateUserRole(@PathVariable Long id, @RequestBody Map<String, Long> request) {
         Long newRoleId = request.get("roleId");
-
-        // Az aktuális felhasználó lekérése
-        UserEntity currentUser = userService.getByUsername(principal.getUsername());
-        if (currentUser == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Current user not found");
-        }
-
-        // Csak SuperAdmin módosíthat szerepköröket
-        if (currentUser.getRole().getId() != 3) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Only SuperAdmins can modify roles!");
-        }
-
-        // Célzott felhasználó lekérése
-        UserEntity targetUser = userService.getUserById(id);
-        if (targetUser == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Target user not found");
-        }
-
-        // A szerepkör frissítése
         userService.updateUserRole(id, newRoleId);
         return ResponseEntity.ok("Role updated successfully");
     }
-
 }

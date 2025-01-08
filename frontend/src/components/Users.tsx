@@ -238,7 +238,7 @@ const Users: React.FC = () => {
             <p className="text-red-500">{error}</p>
             <table className="table-auto w-full border-collapse border border-black bg-[#7caa56] text-black">
                 <thead>
-                <tr className="bg-[#ee4e4e] h-12">
+                <tr className="bg-[#EE4E4E] h-12">
                     <th className="border border-[#F6EEC9] px-4 py-2 text-black w-12">#</th>
                     <th className="border border-[#F6EEC9] px-4 py-2 text-black w-32">Username</th>
                     <th className="border border-[#F6EEC9] px-4 py-2 text-black w-40">Email</th>
@@ -403,7 +403,6 @@ const Users: React.FC = () => {
                                         </select>
                                     )}
                                 </td>
-
                             </>
                         )}
                     </tr>
@@ -412,6 +411,6 @@ const Users: React.FC = () => {
             </table>
         </div>
     );
-};
+}
 
 export default Users;
