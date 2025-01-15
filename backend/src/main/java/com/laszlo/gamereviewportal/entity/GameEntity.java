@@ -1,6 +1,7 @@
 package com.laszlo.gamereviewportal.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -29,6 +30,7 @@ public class GameEntity {
     private String title;
 
     @ManyToOne
+    @JsonManagedReference
     //@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "developer_id", referencedColumnName = "id", nullable = false)
     private DeveloperEntity developer;
@@ -63,6 +65,7 @@ public class GameEntity {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<GameGenreEntity> gameGenres = new HashSet<>();
 
     @ManyToMany

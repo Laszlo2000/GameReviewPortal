@@ -38,9 +38,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/register", "/login").permitAll()
                         .requestMatchers("/admin/check-role").authenticated()
-                        .requestMatchers("/admin", "/admin/**").hasAuthority("admin")
+                        .requestMatchers("/admin").hasAuthority("admin")
                         .requestMatchers(HttpMethod.PUT, "/admin/users/**").hasAuthority("admin")
                         .requestMatchers("/developers/**").hasAuthority("admin")
+                        .requestMatchers("/games/**").hasAuthority("admin")
+                        .requestMatchers("/admin/{id}/role").hasAuthority("superadmin") // Ez fontos
                         .anyRequest().authenticated())
                 .httpBasic(withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

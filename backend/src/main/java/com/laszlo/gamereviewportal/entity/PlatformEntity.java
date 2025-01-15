@@ -1,5 +1,6 @@
 package com.laszlo.gamereviewportal.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -19,6 +20,7 @@ public class PlatformEntity {
     private String name;
 
     @ManyToMany(mappedBy = "platforms")
+    @JsonBackReference
     private Set<GameEntity> games = new HashSet<>();
 
     public PlatformEntity() {

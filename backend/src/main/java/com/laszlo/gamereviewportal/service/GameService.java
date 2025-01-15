@@ -1,40 +1,93 @@
 package com.laszlo.gamereviewportal.service;
 
 import com.laszlo.gamereviewportal.dto.GameDto;
+import com.laszlo.gamereviewportal.entity.DeveloperEntity;
 import com.laszlo.gamereviewportal.entity.GameEntity;
+import com.laszlo.gamereviewportal.repository.DeveloperRepository;
 import com.laszlo.gamereviewportal.repository.GameRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GameService {
 
     private final GameRepository gameRepository;
+    private final DeveloperRepository developerRepository; // helpers típus
 
-    public GameService(GameRepository gameRepository) {
+    public GameService(GameRepository gameRepository, DeveloperRepository developerRepository) {
         this.gameRepository = gameRepository;
+        this.developerRepository = developerRepository;
+    }
+
+    public void addGame(GameDto gameDto) {
+        // Fejlesztő entitás keresése
+        DeveloperEntity developer = developerRepository.findById(gameDto.getDeveloperId())
+                .orElseThrow(() -> new EntityNotFoundException("Developer not found."));
+
+        // Új játék entitás létrehozása
+        GameEntity gameEntity = new GameEntity();
+        gameEntity.setTitle(gameDto.getTitle());
+        gameEntity.setDeveloper(developer);
+        gameEntity.setReleaseDate(gameDto.getReleaseDate());
+        gameEntity.setCoverImage(gameDto.getCoverImageUrl());
+        gameEntity.setDescription(gameDto.getDescription());
+        gameEntity.setPrice(gameDto.getPrice());
+        gameEntity.setAverageRating(BigDecimal.ZERO); // Kezdetben nincs értékelés
+
+        // Mentés az adatbázisba
+        gameRepository.save(gameEntity);
+    }
+
+    public void deleteGame(Long id) {
+        if (!gameRepository.existsById(id)) {
+            throw new EntityNotFoundException("Game not found.");
+        }
+        gameRepository.deleteById(id);
+    }
+
+    public void updateGame(Long id, GameDto gameDto) {
+        GameEntity gameEntity = gameRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Game not found."));
+
+        // Csak a módosítható mezők frissítése
+        gameEntity.setTitle(gameDto.getTitle());
+        gameEntity.setCoverImage(gameDto.getCoverImageUrl());
+        gameEntity.setReleaseDate(gameDto.getReleaseDate());
+        gameEntity.setPrice(gameDto.getPrice());
+
+        // Developer ID frissítése
+        DeveloperEntity developer = developerRepository.findById(gameDto.getDeveloperId())
+                .orElseThrow(() -> new EntityNotFoundException("Developer not found."));
+        gameEntity.setDeveloper(developer);
+
+        gameRepository.save(gameEntity);
     }
 
     public List<GameDto> getAllGames() {
-        return gameRepository.findAll()
-                .stream()
-                .map(game -> new GameDto(
-                        game.getId(),
-                        game.getTitle(),
-                        game.getDeveloper().getId(),
-                        game.getReleaseDate(),
-                        game.getCoverImage(),
-                        game.getDescription(),
-                        game.getPrice(),
-                        game.getAverageRating(),
-                        game.getCreatedAt(),
-                        game.getUpdatedAt()))
-                .toList();
+        List<GameEntity> games = gameRepository.findAll();
+        return games.stream().map(game -> {
+            GameDto dto = new GameDto();
+            dto.setId(game.getId());
+            dto.setTitle(game.getTitle());
+            dto.setDeveloperId(game.getDeveloper().getId());
+            dto.setDeveloperName(game.getDeveloper().getName()); // Fejlesztő neve hozzáadva
+            dto.setReleaseDate(LocalDate.parse(game.getReleaseDate().toString()));
+            dto.setCoverImageUrl(game.getCoverImage());
+            dto.setDescription(game.getDescription());
+            dto.setPrice(game.getPrice());
+            dto.setAverageRating(game.getAverageRating());
+            dto.setCreatedAt(game.getCreatedAt());
+            dto.setUpdatedAt(game.getUpdatedAt());
+            return dto;
+        }).collect(Collectors.toList());
     }
+
 
     // Játék keresése cím alapján
     public Optional<GameEntity> findByTitle(String title) {

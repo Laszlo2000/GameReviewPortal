@@ -1,5 +1,6 @@
 package com.laszlo.gamereviewportal.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -15,6 +16,7 @@ public class GameGenreEntity {
 
     @ManyToOne
     @JoinColumn(name = "game_id", nullable = false)
+    @JsonBackReference
     private GameEntity game;
 
     @ManyToOne

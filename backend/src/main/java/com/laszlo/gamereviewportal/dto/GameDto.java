@@ -1,20 +1,27 @@
 package com.laszlo.gamereviewportal.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.laszlo.gamereviewportal.entity.GameEntity;
+import com.laszlo.gamereviewportal.entity.PlatformEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GameDto {
     private Long id;
     private String title;
     private Long developerId;
+    private String developerName; // Új mező
     private LocalDate releaseDate;
     private String coverImageUrl;
     private String description;
     private BigDecimal price;
     private BigDecimal averageRating;
+    private Set<String> gameGenres;
+    private Set<String> platforms;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
@@ -25,17 +32,55 @@ public class GameDto {
     public GameDto() {
     }
 
-    public GameDto(Long id, String title, Long developerId, LocalDate releaseDate, String coverImageUrl, String description, BigDecimal price, BigDecimal averageRating, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public GameDto(long id, String title, long developerId, String developerName, LocalDate releaseDate,
+                   String coverImage, String description, BigDecimal price,
+                   BigDecimal averageRating, LocalDateTime createdAt,
+                   LocalDateTime updatedAt, Set<String> platforms, Set<String> gameGenres) {
         this.id = id;
         this.title = title;
         this.developerId = developerId;
+        this.developerName = developerName;
         this.releaseDate = releaseDate;
-        this.coverImageUrl = coverImageUrl;
+        this.coverImageUrl = coverImage;
         this.description = description;
         this.price = price;
         this.averageRating = averageRating;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.platforms = platforms;
+        this.gameGenres = gameGenres;
+    }
+
+    public <R> GameDto(long id, String title, long id1, LocalDate releaseDate, String coverImage, String description, BigDecimal price, BigDecimal averageRating, LocalDateTime createdAt, LocalDateTime updatedAt, R collect, R collect1) {
+    }
+
+    public static GameDto fromEntity(GameEntity game) {
+        return new GameDto(
+                game.getId(),
+                game.getTitle(),
+                game.getDeveloper().getId(),
+                game.getReleaseDate(),
+                game.getCoverImage(),
+                game.getDescription(),
+                game.getPrice(),
+                game.getAverageRating(),
+                game.getCreatedAt(),
+                game.getUpdatedAt(),
+                game.getPlatforms().stream()
+                        .map(PlatformEntity::getName)
+                        .collect(Collectors.toSet()),
+                game.getGameGenres().stream()
+                        .map(genre -> genre.getGenre().getName()) // Ha van "genre" mező
+                        .collect(Collectors.toSet())
+        );
+    }
+
+    public String getDeveloperName() {
+        return developerName;
+    }
+
+    public void setDeveloperName(String developerName) {
+        this.developerName = developerName;
     }
 
     public Long getId() {

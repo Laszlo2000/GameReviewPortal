@@ -2,7 +2,12 @@ package com.laszlo.gamereviewportal.controller;
 
 import com.laszlo.gamereviewportal.dto.GameDto;
 import com.laszlo.gamereviewportal.entity.GameEntity;
+import com.laszlo.gamereviewportal.entity.UserEntity;
+import com.laszlo.gamereviewportal.repository.GameRepository;
 import com.laszlo.gamereviewportal.service.GameService;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +25,45 @@ public class GameController {
 
     public GameController(GameService gameService) {
         this.gameService = gameService;
+    }
+
+    @PostMapping
+    @PreAuthorize("hasAuthority('admin')")
+    public ResponseEntity<String> addGame(@RequestBody GameDto gameDto) {
+        try {
+            gameService.addGame(gameDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Game added successfully!");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Developer not found.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while adding the game.");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('admin')")
+    public ResponseEntity<String> deleteGame(@PathVariable Long id) {
+        try {
+            gameService.deleteGame(id);
+            return ResponseEntity.ok("Game deleted successfully!");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Game not found.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while deleting the game.");
+        }
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('admin')")
+    public ResponseEntity<String> updateGame(@PathVariable Long id, @RequestBody GameDto gameDto) {
+        try {
+            gameService.updateGame(id, gameDto);
+            return ResponseEntity.ok("Game updated successfully!");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Game not found.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the game.");
+        }
     }
 
     @GetMapping
@@ -135,4 +179,6 @@ public class GameController {
     public List<GameEntity> getGamesWithRatingAtLeast(@RequestParam BigDecimal averageRating) {
         return gameService.findGamesWithRatingAtLeast(averageRating);
     }
+
+
 }
